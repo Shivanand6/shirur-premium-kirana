@@ -1,0 +1,16 @@
+# Shirur Kirani Stores
+
+> Trusted family-owned grocery and general store in Navanagar, Hubballi, Karnataka. Serving the neighborhood since 1996 with quality groceries, genuine pricing and home delivery via WhatsApp.
+
+Shirur Kirani Stores is located at Karnataka Circle, Navanagar, Hubballi, Karnataka, India. Contact: +91 96110 94379. Open daily 8:00 AM – 10:00 PM.
+
+## Pages
+- [Home](/): Overview of the store, key highlights, and how to order
+- [About](/about): Store history, family owners, values
+- [Products](/products): Rice, dal, oil, atta, masala and daily essentials
+- [How to Order](/how-to-order): 6-step WhatsApp ordering process and payment methods
+- [Awards](/awards): Recognition and awards received by the store
+- [Gallery](/gallery): Photos of the store and products
+- [Location](/location): Address, map, business hours and directions
+- [Contact](/contact): Phone, WhatsApp and contact form
+- [AI Assistant](/ai-assistant): Multilingual assistant for store questions
