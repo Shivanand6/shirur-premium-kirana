@@ -8,7 +8,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Shirur Kirani Stores, Navanagar, Hubballi" },
-      { name: "description", content: "Contact Shirur Kirani Stores in Navanagar, Hubballi by phone, WhatsApp or in person. Open daily 8 AM – 10 PM." },
+      { name: "description", content: "Contact Shirur Kirani Stores in Navanagar, Hubballi by phone, WhatsApp or in person. Open daily 7 AM – 2 PM and 5 PM – 10 PM." },
       { property: "og:title", content: "Contact — Shirur Kirani Stores" },
       { property: "og:description", content: "Phone, WhatsApp and store address." },
       { property: "og:url", content: "/contact" },
@@ -90,7 +90,8 @@ function Contact() {
               </div>
               <div>
                 <div className="text-xs uppercase tracking-wider text-muted-foreground">Business Hours</div>
-                <div className="font-medium">Mon – Sun · 8 AM – 10 PM</div>
+                <div className="font-medium">Mon – Sun</div>
+                <div className="text-sm text-muted-foreground">7:00 AM – 2:00 PM · 5:00 PM – 10:00 PM</div>
               </div>
             </div>
           </div>

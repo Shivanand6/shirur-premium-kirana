@@ -6,7 +6,8 @@
 
 /*
  * Shirur Kirani Stores — Design System
- * Warm, premium palette: cream + saffron + deep emerald.
+ * Premium ecommerce palette (Flipkart-inspired) tuned for a grocery brand.
+ * Primary Blue, Fresh Green, Warm Yellow, Accent Red. White backgrounds.
  * All colors in oklch. Use semantic tokens only.
  */
 
@@ -48,87 +49,86 @@
   --color-emerald-foreground: var(--emerald-foreground);
   --color-cream: var(--cream);
   --color-whatsapp: var(--whatsapp);
-
-  --shadow-soft: 0 1px 2px oklch(0.2 0.05 60 / 0.06), 0 8px 24px oklch(0.2 0.05 60 / 0.08);
-  --shadow-glow: 0 10px 40px -10px oklch(0.65 0.18 55 / 0.35);
-  --shadow-lift: 0 20px 60px -20px oklch(0.2 0.05 60 / 0.25);
 }
 
 :root {
-  --radius: 0.75rem;
+  --radius: 0.85rem;
 
-  /* Warm cream base */
-  --background: oklch(0.985 0.012 85);
-  --foreground: oklch(0.22 0.03 55);
+  /* White base with a hint of blue for depth */
+  --background: oklch(0.995 0.003 240);
+  --foreground: oklch(0.18 0.03 260);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.22 0.03 55);
+  --card-foreground: oklch(0.18 0.03 260);
 
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.22 0.03 55);
+  --popover-foreground: oklch(0.18 0.03 260);
 
-  /* Saffron/amber primary */
-  --primary: oklch(0.62 0.17 55);
-  --primary-foreground: oklch(0.99 0.01 85);
+  /* Primary — Flipkart-inspired vibrant blue */
+  --primary: oklch(0.55 0.19 258);
+  --primary-foreground: oklch(0.99 0.005 240);
 
-  --secondary: oklch(0.94 0.03 75);
-  --secondary-foreground: oklch(0.28 0.05 55);
+  --secondary: oklch(0.96 0.015 240);
+  --secondary-foreground: oklch(0.22 0.05 258);
 
-  --muted: oklch(0.95 0.015 75);
-  --muted-foreground: oklch(0.5 0.03 60);
+  --muted: oklch(0.965 0.008 240);
+  --muted-foreground: oklch(0.5 0.03 258);
 
-  --accent: oklch(0.94 0.04 75);
-  --accent-foreground: oklch(0.28 0.05 55);
+  --accent: oklch(0.95 0.03 240);
+  --accent-foreground: oklch(0.22 0.05 258);
 
-  --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.99 0.01 85);
+  /* Accent red for badges / destructive */
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0.005 240);
 
-  --border: oklch(0.9 0.02 75);
-  --input: oklch(0.92 0.02 75);
-  --ring: oklch(0.62 0.17 55);
+  --border: oklch(0.9 0.012 240);
+  --input: oklch(0.92 0.012 240);
+  --ring: oklch(0.55 0.19 258);
 
-  --gold: oklch(0.75 0.14 80);
-  --gold-foreground: oklch(0.25 0.05 55);
-  --emerald: oklch(0.5 0.13 165);
-  --emerald-foreground: oklch(0.99 0.01 85);
-  --cream: oklch(0.97 0.02 85);
+  /* Warm yellow — CTAs / highlights */
+  --gold: oklch(0.85 0.16 92);
+  --gold-foreground: oklch(0.22 0.05 60);
+  /* Fresh grocery green */
+  --emerald: oklch(0.62 0.17 148);
+  --emerald-foreground: oklch(0.99 0.005 240);
+  --cream: oklch(0.98 0.008 240);
   --whatsapp: oklch(0.65 0.18 150);
 }
 
 .dark {
-  --background: oklch(0.18 0.02 55);
-  --foreground: oklch(0.95 0.02 85);
+  --background: oklch(0.18 0.02 258);
+  --foreground: oklch(0.96 0.01 240);
 
-  --card: oklch(0.22 0.025 55);
-  --card-foreground: oklch(0.95 0.02 85);
+  --card: oklch(0.22 0.025 258);
+  --card-foreground: oklch(0.96 0.01 240);
 
-  --popover: oklch(0.22 0.025 55);
-  --popover-foreground: oklch(0.95 0.02 85);
+  --popover: oklch(0.22 0.025 258);
+  --popover-foreground: oklch(0.96 0.01 240);
 
-  --primary: oklch(0.72 0.16 60);
-  --primary-foreground: oklch(0.18 0.02 55);
+  --primary: oklch(0.68 0.17 258);
+  --primary-foreground: oklch(0.15 0.02 258);
 
-  --secondary: oklch(0.28 0.03 55);
-  --secondary-foreground: oklch(0.95 0.02 85);
+  --secondary: oklch(0.28 0.03 258);
+  --secondary-foreground: oklch(0.96 0.01 240);
 
-  --muted: oklch(0.26 0.025 55);
-  --muted-foreground: oklch(0.7 0.02 75);
+  --muted: oklch(0.26 0.025 258);
+  --muted-foreground: oklch(0.72 0.02 240);
 
-  --accent: oklch(0.3 0.05 60);
-  --accent-foreground: oklch(0.95 0.02 85);
+  --accent: oklch(0.3 0.05 258);
+  --accent-foreground: oklch(0.96 0.01 240);
 
-  --destructive: oklch(0.65 0.2 25);
-  --destructive-foreground: oklch(0.99 0.01 85);
+  --destructive: oklch(0.68 0.2 25);
+  --destructive-foreground: oklch(0.99 0.005 240);
 
-  --border: oklch(0.3 0.03 55);
-  --input: oklch(0.3 0.03 55);
-  --ring: oklch(0.72 0.16 60);
+  --border: oklch(0.3 0.03 258);
+  --input: oklch(0.3 0.03 258);
+  --ring: oklch(0.68 0.17 258);
 
-  --gold: oklch(0.78 0.14 80);
-  --gold-foreground: oklch(0.2 0.03 55);
-  --emerald: oklch(0.65 0.14 165);
-  --emerald-foreground: oklch(0.18 0.02 55);
-  --cream: oklch(0.22 0.025 55);
+  --gold: oklch(0.85 0.16 92);
+  --gold-foreground: oklch(0.2 0.03 60);
+  --emerald: oklch(0.68 0.15 148);
+  --emerald-foreground: oklch(0.18 0.02 258);
+  --cream: oklch(0.22 0.025 258);
   --whatsapp: oklch(0.7 0.18 150);
 }
 
@@ -155,15 +155,16 @@
 @utility text-pretty { text-wrap: pretty; }
 
 @utility glass-card {
-  background: color-mix(in oklab, var(--color-card) 70%, transparent);
+  background: color-mix(in oklab, var(--color-card) 72%, transparent);
   backdrop-filter: blur(18px) saturate(140%);
   border: 1px solid color-mix(in oklab, var(--color-border) 60%, transparent);
 }
 
 @utility hero-gradient {
   background:
-    radial-gradient(ellipse at top left, oklch(0.75 0.14 80 / 0.25), transparent 55%),
-    radial-gradient(ellipse at bottom right, oklch(0.6 0.13 165 / 0.18), transparent 55%),
+    radial-gradient(ellipse at top left, oklch(0.55 0.19 258 / 0.14), transparent 55%),
+    radial-gradient(ellipse at bottom right, oklch(0.62 0.17 148 / 0.14), transparent 55%),
+    radial-gradient(ellipse at 60% 30%, oklch(0.85 0.16 92 / 0.18), transparent 60%),
     var(--color-background);
 }
 
@@ -176,10 +177,16 @@
 }
 
 @utility gold-text {
-  background: linear-gradient(135deg, oklch(0.72 0.15 75), oklch(0.62 0.17 55));
+  background: linear-gradient(135deg, oklch(0.55 0.19 258), oklch(0.62 0.17 148));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+@theme inline {
+  --shadow-soft: 0 1px 2px oklch(0.2 0.05 258 / 0.06), 0 8px 24px oklch(0.2 0.05 258 / 0.08);
+  --shadow-glow: 0 10px 40px -10px oklch(0.55 0.19 258 / 0.35);
+  --shadow-lift: 0 20px 60px -20px oklch(0.2 0.05 258 / 0.25);
 }
 
 /* Animations */

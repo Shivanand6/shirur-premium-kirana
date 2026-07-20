@@ -124,12 +124,20 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressRegion: "Karnataka",
             addressCountry: "IN",
           },
-          openingHoursSpecification: {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
-            opens: "08:00",
-            closes: "22:00",
-          },
+          openingHoursSpecification: [
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+              opens: "07:00",
+              closes: "14:00",
+            },
+            {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+              opens: "17:00",
+              closes: "22:00",
+            },
+          ],
         }),
       },
     ],
