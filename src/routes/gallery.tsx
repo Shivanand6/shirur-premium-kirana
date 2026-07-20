@@ -2,8 +2,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { Camera, Image as ImageIcon } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import heroStore from "@/assets/hero-store.jpg";
-import essentials from "@/assets/essentials.jpg";
 
 type Item = { id: string; title: string | null; image_url: string; media_type: string };
 
@@ -31,14 +29,6 @@ function Gallery() {
     },
   });
 
-  // Fallback demo images if none uploaded yet
-  const displayItems: Item[] = items.length > 0 ? items : [
-    { id: "d1", title: "Inside the store", image_url: heroStore, media_type: "photo" },
-    { id: "d2", title: "Daily essentials", image_url: essentials, media_type: "photo" },
-    { id: "d3", title: "Inside the store", image_url: heroStore, media_type: "photo" },
-    { id: "d4", title: "Fresh spices", image_url: essentials, media_type: "photo" },
-  ];
-
   return (
     <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24 lg:px-8">
       <div className="max-w-3xl">
@@ -49,24 +39,32 @@ function Gallery() {
         </p>
       </div>
 
-      <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {displayItems.map((it, i) => (
-          <figure key={it.id} className={`card-lift group relative overflow-hidden rounded-2xl border bg-card ${i % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""}`}>
-            <div className={`${i % 5 === 0 ? "aspect-[4/3]" : "aspect-square"} overflow-hidden`}>
-              <img
-                src={it.image_url}
-                alt={it.title ?? "Shirur Kirani Stores"}
-                loading="lazy"
-                className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-              />
-            </div>
-            <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4 text-sm font-medium text-white">
-              <span>{it.title}</span>
-              {it.media_type === "video" ? <Camera className="h-4 w-4" /> : <ImageIcon className="h-4 w-4" />}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
+      {items.length === 0 ? (
+        <div className="mt-16 grid place-items-center rounded-3xl border border-dashed bg-card/40 p-16 text-center">
+          <ImageIcon className="h-10 w-10 text-muted-foreground/60" strokeWidth={1.4} />
+          <p className="mt-4 font-medium">Gallery coming soon</p>
+          <p className="mt-1 text-sm text-muted-foreground">Fresh photos of the store will appear here.</p>
+        </div>
+      ) : (
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map((it, i) => (
+            <figure key={it.id} className={`card-lift group relative overflow-hidden rounded-2xl border bg-card ${i % 5 === 0 ? "sm:col-span-2 sm:row-span-2" : ""}`}>
+              <div className={`${i % 5 === 0 ? "aspect-[4/3]" : "aspect-square"} overflow-hidden`}>
+                <img
+                  src={it.image_url}
+                  alt={it.title ?? "Shirur Kirani Stores"}
+                  loading="lazy"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+              </div>
+              <figcaption className="absolute inset-x-0 bottom-0 flex items-center justify-between bg-gradient-to-t from-black/70 via-black/20 to-transparent p-4 text-sm font-medium text-white">
+                <span>{it.title}</span>
+                {it.media_type === "video" ? <Camera className="h-4 w-4" /> : <ImageIcon className="h-4 w-4" />}
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
