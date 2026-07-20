@@ -1,7 +1,8 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Menu, X, ShoppingBasket, Moon, Sun } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Menu, X, ShoppingBasket, Moon, Sun, Globe, Check } from "lucide-react";
 import { useTheme } from "@/lib/theme";
+import { useLanguage, SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/language";
 
 const links = [
   { to: "/", label: "Home" },
@@ -18,7 +19,10 @@ const links = [
 export function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
   const { theme, toggle } = useTheme();
+  const { lang, setLang, languageName } = useLanguage();
+  const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -27,15 +31,29 @@ export function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    const onDown = (e: MouseEvent) => {
+      if (!langRef.current) return;
+      if (!langRef.current.contains(e.target as Node)) setLangOpen(false);
+    };
+    document.addEventListener("mousedown", onDown);
+    return () => document.removeEventListener("mousedown", onDown);
+  }, []);
+
+  const pick = (code: LanguageCode) => {
+    setLang(code);
+    setLangOpen(false);
+  };
+
   return (
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         scrolled ? "glass-card border-b" : "bg-transparent border-b border-transparent"
       }`}
     >
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 sm:px-6 lg:px-8">
         <Link to="/" className="group flex min-w-0 items-center gap-2.5">
-          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-gold text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-500 group-hover:rotate-12">
+          <div className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-primary to-emerald text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-500 group-hover:rotate-12">
             <ShoppingBasket className="h-5 w-5" strokeWidth={2.4} />
           </div>
           <div className="min-w-0 leading-tight">
@@ -59,6 +77,41 @@ export function Nav() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {/* Language dropdown */}
+          <div ref={langRef} className="relative">
+            <button
+              onClick={() => setLangOpen((v) => !v)}
+              aria-label="Select language"
+              aria-expanded={langOpen}
+              className="flex h-10 items-center gap-1.5 rounded-xl border bg-card px-2.5 text-xs font-semibold transition hover:bg-accent sm:px-3"
+            >
+              <Globe className="h-4 w-4" />
+              <span className="hidden sm:inline">{languageName}</span>
+              <span className="sm:hidden uppercase">{lang}</span>
+            </button>
+            {langOpen && (
+              <div className="absolute right-0 top-full z-50 mt-2 w-56 overflow-hidden rounded-2xl border bg-popover shadow-[var(--shadow-lift)]">
+                <div className="max-h-80 overflow-y-auto p-1.5">
+                  {SUPPORTED_LANGUAGES.map((l) => (
+                    <button
+                      key={l.code}
+                      onClick={() => pick(l.code)}
+                      className={`flex w-full items-center justify-between rounded-lg px-3 py-2 text-left text-sm transition hover:bg-accent ${
+                        l.code === lang ? "bg-accent/70 text-primary font-medium" : ""
+                      }`}
+                    >
+                      <span>
+                        <span className="font-medium">{l.label}</span>
+                        <span className="ml-2 text-xs text-muted-foreground">{l.native}</span>
+                      </span>
+                      {l.code === lang && <Check className="h-4 w-4 text-primary" />}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+
           <button
             onClick={toggle}
             aria-label="Toggle theme"

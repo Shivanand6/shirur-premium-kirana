@@ -15,6 +15,7 @@ import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { FloatingButtons } from "@/components/site/FloatingButtons";
 import { ThemeProvider } from "@/lib/theme";
+import { LanguageProvider } from "@/lib/language";
 import { Toaster } from "sonner";
 
 function NotFoundComponent() {
@@ -167,15 +168,17 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <div className="flex min-h-screen flex-col">
-          <Nav />
-          <main className="flex-1">
-            <Outlet />
-          </main>
-          <Footer />
-          <FloatingButtons />
-          <Toaster position="top-center" richColors />
-        </div>
+        <LanguageProvider>
+          <div className="flex min-h-screen flex-col">
+            <Nav />
+            <main className="flex-1">
+              <Outlet />
+            </main>
+            <Footer />
+            <FloatingButtons />
+            <Toaster position="top-center" richColors />
+          </div>
+        </LanguageProvider>
       </ThemeProvider>
     </QueryClientProvider>
   );
