@@ -1,13 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Heart, Users, Award, Sparkles } from "lucide-react";
-import ownerPlaceholder from "@/assets/owner-placeholder.png";
+import { Heart, Users, Award, Sparkles, User } from "lucide-react";
 import { ESTABLISHED_YEAR } from "@/lib/store-info";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
       { title: "About Us — Shirur Kirani Stores | Family Kirana Since 1996" },
-      { name: "description", content: "Family-owned since 1996. Shirur Kirani Stores has served Navanagar, Hubballi for nearly three decades with quality, genuine pricing and trust." },
+      { name: "description", content: "Family-owned since 1996. Shirur Kirani Stores has served Navanagar, Hubballi for nearly three decades with quality, honest service and trust." },
       { property: "og:title", content: "About Shirur Kirani Stores" },
       { property: "og:description", content: "Three decades of trusted neighborhood service in Hubballi." },
       { property: "og:url", content: "/about" },
@@ -28,7 +27,7 @@ function About() {
           Established in {ESTABLISHED_YEAR}, Shirur Kirani Stores has served the families of
           Navanagar, Hubballi for nearly three decades. What began as a small neighborhood
           shop has grown into one of the most trusted grocery and general stores in the area —
-          known for quality products, genuine pricing and customer satisfaction.
+          known for quality products, honest service and customer satisfaction.
         </p>
         <p className="mt-4 text-muted-foreground text-pretty">
           We remain proudly family-owned. Every product on our shelves is chosen with the same
@@ -51,29 +50,31 @@ function About() {
         ))}
       </div>
 
-      {/* Owners */}
+      {/* Owners — clean icon cards, no avatars */}
       <div className="mt-20">
-        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Meet the Family</div>
+        <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary">Meet the Owners</div>
         <h2 className="mt-3 font-display text-3xl font-bold sm:text-4xl">The people behind the store.</h2>
         <div className="mt-10 grid gap-6 sm:grid-cols-2">
           {[
-            { name: "Manjunath Shirur", role: "Founder & Proprietor" },
-            { name: "Anand Shirur", role: "Co-owner" },
+            { name: "Manjunath Shirur", role: "Owner" },
+            { name: "Anand Shirur", role: "Owner" },
           ].map((o) => (
             <div key={o.name} className="card-lift group relative overflow-hidden rounded-3xl border bg-card">
-              <div className="grid gap-6 p-6 sm:grid-cols-[auto_1fr] sm:items-center">
-                <div className="grid h-28 w-28 shrink-0 place-items-center overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-gold/20">
-                  <img src={ownerPlaceholder} alt={`Portrait placeholder for ${o.name}`} width={600} height={600} className="h-full w-full object-cover" loading="lazy" />
+              <div className="flex items-center gap-5 p-7">
+                <div className="grid h-20 w-20 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-primary to-emerald text-primary-foreground shadow-[var(--shadow-glow)] transition-transform duration-500 group-hover:scale-105 group-hover:rotate-3">
+                  <User className="h-10 w-10" strokeWidth={1.6} />
                 </div>
                 <div>
                   <h3 className="font-display text-xl font-bold">{o.name}</h3>
-                  <p className="text-sm text-primary">{o.role}</p>
-                  <p className="mt-2 text-sm text-muted-foreground">
+                  <p className="mt-0.5 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-0.5 text-xs font-semibold text-primary">
+                    {o.role}
+                  </p>
+                  <p className="mt-2.5 text-sm text-muted-foreground">
                     Committed to serving the Navanagar community with honesty, quality and warmth.
                   </p>
                 </div>
               </div>
-              <div className="h-1 w-full bg-gradient-to-r from-primary via-gold to-emerald opacity-70 transition-all group-hover:h-1.5" />
+              <div className="h-1 w-full bg-gradient-to-r from-primary via-emerald to-gold opacity-80 transition-all group-hover:h-1.5" />
             </div>
           ))}
         </div>
@@ -83,7 +84,7 @@ function About() {
         <Heart className="mx-auto h-8 w-8 text-primary" />
         <h3 className="mt-3 font-display text-2xl font-bold sm:text-3xl">Our promise</h3>
         <p className="mx-auto mt-3 max-w-2xl text-muted-foreground text-pretty">
-          Genuine products. Honest prices. Personal service. That's how we've earned three
+          Genuine products. Honest service. Personal care. That's how we've earned three
           decades of trust — and that's what we'll bring you every single day.
         </p>
       </div>

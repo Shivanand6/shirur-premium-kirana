@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Lock, Mail, KeyRound, ShieldCheck } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { ADMIN_EMAIL } from "@/lib/store-info";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -17,15 +18,15 @@ export const Route = createFileRoute("/auth")({
 
 function Auth() {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // If already signed in, send them to admin
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/admin", replace: true });
+      if (data.user?.email?.toLowerCase() === ADMIN_EMAIL) {
+        navigate({ to: "/admin", replace: true });
+      }
     });
   }, [navigate]);
 
@@ -33,23 +34,39 @@ function Auth() {
     e.preventDefault();
     setLoading(true);
     try {
-      if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: window.location.origin + "/admin" },
-        });
-        if (error) throw error;
-        toast.success("Account created. You can sign in.");
-        setMode("signin");
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        toast.success("Welcome back");
-        navigate({ to: "/admin", replace: true });
+      const normalized = email.trim().toLowerCase();
+      // Gate at the door: only the single authorized admin email may proceed.
+      if (normalized !== ADMIN_EMAIL) {
+        toast.error("Invalid User Authentication");
+        setLoading(false);
+        return;
       }
+      const { error } = await supabase.auth.signInWithPassword({
+        email: normalized,
+        password,
+      });
+      if (error) {
+        // If the admin has never signed in, silently create the account then sign in.
+        if (error.message.toLowerCase().includes("invalid login")) {
+          const { error: signUpErr } = await supabase.auth.signUp({
+            email: normalized,
+            password,
+            options: { emailRedirectTo: window.location.origin + "/admin" },
+          });
+          if (signUpErr) throw signUpErr;
+          const { error: retryErr } = await supabase.auth.signInWithPassword({
+            email: normalized,
+            password,
+          });
+          if (retryErr) throw retryErr;
+        } else {
+          throw error;
+        }
+      }
+      toast.success("Welcome back");
+      navigate({ to: "/admin", replace: true });
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Sign in failed");
+      toast.error(err instanceof Error ? err.message : "Invalid User Authentication");
     } finally {
       setLoading(false);
     }
@@ -58,7 +75,7 @@ function Auth() {
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
       <div className="text-center">
-        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-gold text-primary-foreground shadow-[var(--shadow-glow)]">
+        <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-emerald text-primary-foreground shadow-[var(--shadow-glow)]">
           <ShieldCheck className="h-6 w-6" />
         </div>
         <h1 className="mt-4 font-display text-3xl font-bold">Admin Sign In</h1>
@@ -75,6 +92,7 @@ function Auth() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
+              autoComplete="email"
               className="h-11 w-full rounded-lg border bg-background pl-10 pr-3 outline-none focus:ring-2 focus:ring-primary/40"
             />
           </div>
@@ -89,6 +107,7 @@ function Auth() {
               onChange={(e) => setPassword(e.target.value)}
               required
               minLength={6}
+              autoComplete="current-password"
               className="h-11 w-full rounded-lg border bg-background pl-10 pr-3 outline-none focus:ring-2 focus:ring-primary/40"
             />
           </div>
@@ -100,15 +119,7 @@ function Auth() {
           className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:-translate-y-0.5 disabled:opacity-60"
         >
           <Lock className="h-4 w-4" />
-          {loading ? "Please wait…" : mode === "signin" ? "Sign In" : "Create Account"}
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setMode((m) => (m === "signin" ? "signup" : "signin"))}
-          className="mt-3 w-full text-center text-xs text-muted-foreground hover:text-primary"
-        >
-          {mode === "signin" ? "Need an admin account? Sign up" : "Already have an account? Sign in"}
+          {loading ? "Please wait…" : "Sign In"}
         </button>
       </form>
 

@@ -6,17 +6,14 @@ const ThemeCtx = createContext<{ theme: Theme; toggle: () => void }>({
   toggle: () => {},
 });
 
+// Default is ALWAYS light. Users can toggle to dark manually and their choice persists,
+// but we do not follow the OS preference — the site always starts in light mode.
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
 
-  // Read stored preference after hydration to avoid SSR mismatch.
   useEffect(() => {
     const stored = (typeof window !== "undefined" && window.localStorage.getItem("theme")) as Theme | null;
-    const prefersDark =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-    const initial: Theme = stored ?? (prefersDark ? "dark" : "light");
-    setTheme(initial);
+    if (stored === "dark") setTheme("dark");
   }, []);
 
   useEffect(() => {

@@ -11,28 +11,32 @@ const ChatInput = z.object({
     )
     .min(1)
     .max(20),
+  language: z.string().max(40).optional(),
 });
 
 const SYSTEM_PROMPT = `You are the friendly, professional AI assistant for **Shirur Kirani Stores** — a trusted family-owned grocery and general store established in 1996, located at Karnataka Circle, Navanagar, Hubballi, Karnataka, India.
 
 Facts you know:
 - Store: Shirur Kirani Stores, family-owned since 1996.
-- Owners: Manjunath Shirur (Founder) and Anand Shirur.
+- Owners: Manjunath Shirur (Owner) and Anand Shirur (Owner).
 - Address: Karnataka Circle, Navanagar, Hubballi, Karnataka, India.
 - Phone / WhatsApp: +91 96110 94379.
-- Business hours: 8:00 AM – 10:00 PM, every day.
+- Business hours (Monday to Sunday): 7:00 AM – 2:00 PM and 5:00 PM – 10:00 PM (closed between 2 PM and 5 PM).
 - How to order: send your grocery list on WhatsApp; the store confirms availability, packs the order, and delivers to your home.
 - Home delivery: available across Navanagar; nearby areas on request.
 - Payment methods accepted: Cash, UPI, PhonePe, Google Pay, Paytm, Debit Card, Credit Card, Net Banking, UPI QR, Cash on Delivery.
 - Awards: Highest Seller Award — Gold Winner Oil.
-- Product categories: Rice & Grains, Pulses & Dals, Oils & Ghee, Atta & Flours, Masala & Spices, Daily Essentials, Household, Personal Care, Dairy, Snacks & Biscuits.
+- Product categories: Rice, Dal, Oil, Atta, Sugar, Salt, Tea, Coffee, Spices, Masala, Snacks, Biscuits, Home Care, Cleaning Products, Dry Fruits, Pulses, Stationery, Daily Essentials, Dairy, Personal Care.
 
-Rules:
+STRICT RULES ON PRICES:
+- **Never state, estimate, or invent any product price, MRP, or discount** — not even approximate ranges.
+- If the user asks about price, cost, MRP, discount, "how much", "kitna", or any pricing question, respond with exactly this sentiment in the user's language: "Prices change regularly. Please contact us on WhatsApp at +91 96110 94379 for the latest price and availability." Do not add any numbers.
+
+Other rules:
 - Be warm, concise, and helpful. Keep answers short unless the user asks for detail.
-- **Never invent product prices.** If the user asks about a specific product's price, say prices may vary and suggest confirming on WhatsApp at +91 96110 94379.
-- If asked something you don't know, politely suggest contacting the store.
+- If asked something you don't know, politely suggest contacting the store on WhatsApp.
 - Encourage placing orders via WhatsApp when relevant.
-- Answer in the language the user writes in.`;
+- **Answer in the language the user writes in** (English, Kannada, Hindi, Tamil, Telugu, Malayalam, Marathi, Gujarati, Punjabi, Bengali, etc.). If a preferred language is specified, always reply in that language.`;
 
 export const askAssistant = createServerFn({ method: "POST" })
   .inputValidator((input: unknown) => ChatInput.parse(input))
@@ -40,6 +44,16 @@ export const askAssistant = createServerFn({ method: "POST" })
     const apiKey = process.env.LOVABLE_API_KEY;
     if (!apiKey) {
       return { error: "AI assistant is not configured. Please contact the store on WhatsApp.", reply: null };
+    }
+
+    const systemMessages: Array<{ role: "system"; content: string }> = [
+      { role: "system", content: SYSTEM_PROMPT },
+    ];
+    if (data.language && data.language.trim()) {
+      systemMessages.push({
+        role: "system",
+        content: `The user has selected the language: ${data.language.trim()}. Always reply in ${data.language.trim()} unless the user writes in a different language, in which case follow the user's language.`,
+      });
     }
 
     const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
@@ -50,10 +64,7 @@ export const askAssistant = createServerFn({ method: "POST" })
       },
       body: JSON.stringify({
         model: "google/gemini-2.5-flash",
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          ...data.messages,
-        ],
+        messages: [...systemMessages, ...data.messages],
       }),
     });
 

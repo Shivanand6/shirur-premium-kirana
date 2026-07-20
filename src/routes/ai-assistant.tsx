@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Bot, Send, User, Sparkles, MessageCircle } from "lucide-react";
 import { askAssistant } from "@/lib/assistant.functions";
 import { WHATSAPP_URL } from "@/lib/store-info";
+import { useLanguage } from "@/lib/language";
 
 type Message = { role: "user" | "assistant"; content: string };
 
@@ -31,6 +32,7 @@ const SUGGESTIONS = [
 
 function Assistant() {
   const ask = useServerFn(askAssistant);
+  const { languageName } = useLanguage();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
@@ -56,7 +58,7 @@ function Assistant() {
     try {
       // Only send last 12 turns to keep payload sensible
       const trimmed = next.slice(-12);
-      const res = await ask({ data: { messages: trimmed } });
+      const res = await ask({ data: { messages: trimmed, language: languageName } });
       if (res.error || !res.reply) {
         setMessages((m) => [...m, { role: "assistant", content: res.error ?? "Sorry, I couldn't answer that. Please try WhatsApp." }]);
       } else {

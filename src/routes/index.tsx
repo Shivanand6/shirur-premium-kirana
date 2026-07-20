@@ -4,7 +4,7 @@ import {
   ShieldCheck, Truck, Heart, Award, Sparkles, ArrowRight,
   MessageCircle, MapPin, Star, Users, Package, Timer,
 } from "lucide-react";
-import heroStore from "@/assets/hero-store.jpg";
+import storefront from "@/assets/ssstores.png.asset.json";
 import essentials from "@/assets/essentials.jpg";
 import { WHATSAPP_URL, ESTABLISHED_YEAR } from "@/lib/store-info";
 
@@ -14,7 +14,7 @@ export const Route = createFileRoute("/")({
       { title: "Shirur Kirani Stores — Trusted Grocery Store in Navanagar, Hubballi" },
       { name: "description", content: "Family-run kirana in Navanagar, Hubballi since 1996. Rice, dal, oil, atta, masala & daily essentials with WhatsApp home delivery." },
       { property: "og:title", content: "Shirur Kirani Stores — Since 1996" },
-      { property: "og:description", content: "Quality groceries, genuine prices, home delivery in Hubballi." },
+      { property: "og:description", content: "Quality groceries, honest service, home delivery in Hubballi." },
       { property: "og:url", content: "/" },
     ],
   }),
@@ -123,37 +123,15 @@ function Home() {
           </div>
 
           <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-gold/15 to-transparent blur-2xl" />
+            <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/20 via-emerald/15 to-transparent blur-2xl" />
             <div className="relative overflow-hidden rounded-3xl border shadow-[var(--shadow-lift)]">
               <img
-                src={heroStore}
-                alt="Interior of a warm, well-stocked Indian kirana store with jars of spices, sacks of rice and daily essentials"
+                src={storefront.url}
+                alt="Shirur Kirani Stores storefront in Navanagar, Hubballi"
                 width={1600}
-                height={1100}
+                height={2000}
                 className="h-full w-full object-cover"
               />
-            </div>
-            <div className="absolute -bottom-4 -left-4 hidden rounded-2xl border bg-card p-4 shadow-lg animate-float sm:block">
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-emerald text-emerald-foreground">
-                  <Truck className="h-5 w-5" />
-                </div>
-                <div className="text-sm">
-                  <div className="font-semibold">Home Delivery</div>
-                  <div className="text-xs text-muted-foreground">Same-day in Navanagar</div>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -top-4 -right-4 hidden rounded-2xl border bg-card p-4 shadow-lg sm:block" style={{ animation: "float-slow 7s ease-in-out infinite" }}>
-              <div className="flex items-center gap-3">
-                <div className="grid h-10 w-10 place-items-center rounded-full bg-gold text-gold-foreground">
-                  <Award className="h-5 w-5" />
-                </div>
-                <div className="text-sm">
-                  <div className="font-semibold">Award Winner</div>
-                  <div className="text-xs text-muted-foreground">Gold Winner Oil</div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -171,7 +149,7 @@ function Home() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           {[
             { icon: ShieldCheck, title: "Genuine Products", desc: "Only sourced from trusted brands & mills. No compromises." },
-            { icon: Heart, title: "Fair Pricing", desc: "Honest MRP, generous wholesale rates for regular families." },
+            { icon: Heart, title: "Fair Pricing", desc: "Honest rates for regular families, confirmed on WhatsApp." },
             { icon: Truck, title: "Home Delivery", desc: "Free delivery across Navanagar. Same-day for most orders." },
             { icon: Timer, title: "Fast Service", desc: "WhatsApp your list. We pack, confirm, and dispatch quickly." },
           ].map((f, i) => (
@@ -233,7 +211,7 @@ function Home() {
             { icon: Award, kpi: <><Counter to={1} />+</>, label: "Industry awards" },
           ].map((s) => (
             <div key={s.label} className="glass-card card-lift rounded-2xl p-8 text-center">
-              <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-gold text-primary-foreground">
+              <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-gradient-to-br from-primary to-emerald text-primary-foreground">
                 <s.icon className="h-7 w-7" />
               </div>
               <div className="mt-4 font-display text-4xl font-bold gold-text">{s.kpi}</div>
@@ -245,7 +223,7 @@ function Home() {
 
       {/* CTA */}
       <section className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
-        <div className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-primary/90 to-gold/80 p-8 text-primary-foreground sm:p-14">
+        <div className="relative overflow-hidden rounded-3xl border bg-gradient-to-br from-primary to-emerald p-8 text-primary-foreground sm:p-14">
           <div className="absolute inset-0 opacity-30 [background:radial-gradient(circle_at_20%_20%,white,transparent_40%),radial-gradient(circle_at_80%_80%,white,transparent_35%)]" />
           <div className="relative grid gap-6 sm:grid-cols-[1fr_auto] sm:items-end">
             <div>

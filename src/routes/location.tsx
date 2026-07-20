@@ -6,7 +6,7 @@ export const Route = createFileRoute("/location")({
   head: () => ({
     meta: [
       { title: "Location — Karnataka Circle, Navanagar, Hubballi | Shirur Kirani Stores" },
-      { name: "description", content: "Visit Shirur Kirani Stores at Karnataka Circle, Navanagar, Hubballi, Karnataka. Open daily 8 AM – 10 PM. Get directions on Google Maps." },
+      { name: "description", content: "Visit Shirur Kirani Stores at Karnataka Circle, Navanagar, Hubballi. Open daily 7 AM – 2 PM and 5 PM – 10 PM. Get directions on Google Maps." },
       { property: "og:title", content: "Location — Shirur Kirani Stores" },
       { property: "og:description", content: "Karnataka Circle, Navanagar, Hubballi." },
       { property: "og:url", content: "/location" },
@@ -64,7 +64,8 @@ function Location() {
               <div>
                 <div className="text-xs uppercase tracking-wider text-muted-foreground">Business Hours</div>
                 <div className="mt-1 font-medium">Monday – Sunday</div>
-                <div className="text-sm text-muted-foreground">8:00 AM – 10:00 PM</div>
+                <div className="text-sm text-muted-foreground">7:00 AM – 2:00 PM</div>
+                <div className="text-sm text-muted-foreground">5:00 PM – 10:00 PM</div>
               </div>
             </div>
           </div>
