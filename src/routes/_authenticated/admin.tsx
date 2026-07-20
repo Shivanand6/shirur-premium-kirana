@@ -7,6 +7,7 @@ import {
   Plus, Trash2, ShieldAlert, ShieldCheck,
 } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { ADMIN_EMAIL } from "@/lib/store-info";
 
 export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
@@ -33,14 +34,10 @@ function Admin() {
     (async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) return;
-      setUserEmail(u.user.email ?? "");
-      const { data } = await supabase
-        .from("user_roles")
-        .select("role")
-        .eq("user_id", u.user.id)
-        .eq("role", "admin")
-        .maybeSingle();
-      setIsAdmin(!!data);
+      const email = (u.user.email ?? "").toLowerCase();
+      setUserEmail(email);
+      // Single-admin gate: only the authorized email may enter, no matter what user_roles says.
+      setIsAdmin(email === ADMIN_EMAIL);
     })();
   }, []);
 
@@ -61,15 +58,9 @@ function Admin() {
         <div className="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-destructive/15 text-destructive">
           <ShieldAlert className="h-7 w-7" />
         </div>
-        <h1 className="mt-4 font-display text-3xl font-bold">Not an admin</h1>
+        <h1 className="mt-4 font-display text-3xl font-bold">Invalid User Authentication</h1>
         <p className="mt-2 text-muted-foreground">
-          Your account ({userEmail}) does not have admin access.
-        </p>
-        <p className="mt-4 rounded-2xl border bg-card p-4 text-left text-sm">
-          To grant admin access, sign in to your Lovable Cloud and add this row to <code className="rounded bg-muted px-1">user_roles</code>:
-          <div className="mt-2 rounded-md bg-muted p-3 font-mono text-xs">
-            user_id = your user id · role = <b>admin</b>
-          </div>
+          The account <span className="font-medium">{userEmail}</span> is not authorized to access the admin dashboard.
         </p>
         <button onClick={signOut} className="mt-6 inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm hover:bg-accent">
           <LogOut className="h-4 w-4" /> Sign out
