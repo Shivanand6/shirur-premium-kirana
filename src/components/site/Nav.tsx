@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
-import { Menu, X, ShoppingBasket, Moon, Sun, Globe, Check } from "lucide-react";
+import { Menu, X, ShoppingBasket, Moon, Sun, Globe, Check, LayoutDashboard } from "lucide-react";
 import { useTheme } from "@/lib/theme";
 import { useLanguage, SUPPORTED_LANGUAGES, type LanguageCode } from "@/lib/language";
 
