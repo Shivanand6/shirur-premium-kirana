@@ -4,7 +4,7 @@ import {
   ShieldCheck, Truck, Heart, Award, Sparkles, ArrowRight,
   MessageCircle, MapPin, Star, Users, Package, Timer,
 } from "lucide-react";
-import storefront from "@/assets/ssstores.png.asset.json";
+const storefront = { url: "/hero-store.png" };
 import essentials from "@/assets/essentials.jpg";
 import { WHATSAPP_URL, ESTABLISHED_YEAR } from "@/lib/store-info";
 

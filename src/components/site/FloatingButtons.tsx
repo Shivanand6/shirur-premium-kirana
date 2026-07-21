@@ -13,7 +13,6 @@ export function FloatingButtons() {
         style={{ backgroundColor: "var(--color-whatsapp)" }}
       >
         <MessageCircle className="h-6 w-6 transition-transform group-hover:rotate-12" strokeWidth={2.2} />
-        <span className="pointer-events-none absolute inline-flex h-14 w-14 rounded-full opacity-60 animate-ping" style={{ backgroundColor: "var(--color-whatsapp)" }} />
       </a>
       <a
         href={PHONE_TEL}
