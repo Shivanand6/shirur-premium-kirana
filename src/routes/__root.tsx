@@ -93,7 +93,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Shirur Kirani Stores — Hubballi" },
       { name: "twitter:description", content: "Trusted family kirana in Navanagar, Hubballi since 1996." },
-      { name: "theme-color", content: "#f2b56a" },
+      { name: "theme-color", content: "#2874F0" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
