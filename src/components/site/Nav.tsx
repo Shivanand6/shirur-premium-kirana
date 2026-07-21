@@ -112,6 +112,14 @@ export function Nav() {
             )}
           </div>
 
+          <Link
+            to="/auth"
+            aria-label="Admin dashboard"
+            title="Admin Dashboard"
+            className="grid h-10 w-10 place-items-center rounded-xl border bg-card transition hover:bg-accent"
+          >
+            <LayoutDashboard className="h-4 w-4" />
+          </Link>
           <button
             onClick={toggle}
             aria-label="Toggle theme"
