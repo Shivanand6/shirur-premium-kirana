@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import {
   Search, MessageCircle, Wheat, Bean, Droplet, Cookie, Coffee, Candy,
-  Sparkles, SprayCan, Nut, Pencil, Salad, Milk, Package,
+  Sparkles, SprayCan, Nut, Salad, Package,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { PHONE_RAW } from "@/lib/store-info";
@@ -31,8 +31,6 @@ const CATEGORIES: Category[] = [
   { name: "Cleaning Products", description: "Detergents, floor cleaners, dish wash and more.", icon: SprayCan, gradient: "from-cyan-100 to-blue-200" },
   { name: "Dry Fruits", description: "Almonds, cashews, raisins, dates and premium mixes.", icon: Nut, gradient: "from-amber-100 to-orange-300" },
   { name: "Pulses", description: "Chickpeas, rajma, kabuli, green gram and beans.", icon: Bean, gradient: "from-emerald-100 to-green-200" },
-  { name: "Dairy", description: "Milk, curd, paneer, butter and everyday dairy.", icon: Milk, gradient: "from-blue-50 to-slate-100" },
-  { name: "Stationery", description: "Notebooks, pens, essentials for students and offices.", icon: Pencil, gradient: "from-indigo-100 to-blue-200" },
 ];
 
 export const Route = createFileRoute("/products")({
