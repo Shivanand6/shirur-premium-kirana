@@ -43,15 +43,11 @@ const steps = [
 
 const payments = [
   { label: "Cash", emoji: "💵" },
+  { label: "Cash on Delivery", emoji: "📦" },
   { label: "UPI", emoji: "📱" },
   { label: "PhonePe", emoji: "🟣" },
   { label: "Google Pay", emoji: "🟢" },
   { label: "Paytm", emoji: "🔵" },
-  { label: "Debit Card", emoji: "💳" },
-  { label: "Credit Card", emoji: "🏦" },
-  { label: "Net Banking", emoji: "🌐" },
-  { label: "UPI QR", emoji: "📷" },
-  { label: "Cash on Delivery", emoji: "📦" },
 ];
 
 function HowToOrder() {
