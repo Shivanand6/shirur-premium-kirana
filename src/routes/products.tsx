@@ -2,7 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import {
   Search, MessageCircle, Wheat, Bean, Droplet, Cookie, Coffee, Candy,
-  Sparkles, SprayCan, Nut, Pencil, Salad, Milk, Package,
+  Sparkles, SprayCan, Nut, Salad, Package,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { PHONE_RAW } from "@/lib/store-info";
