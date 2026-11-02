@@ -72,6 +72,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         name: "google-site-verification",
         content: "9Tdof9ys6sq_9L_mKxQahe10tlQyVhpWm5rtVMiXiCE",
       },
+      {
+         name: "google-adsense-account",
+         content: "ca-pub-1448928585064975",
+      },
       { title: "Shirur Kirani Stores — Trusted Grocery Store in Navanagar, Hubballi (Since 1996)" },
       {
         name: "description",
